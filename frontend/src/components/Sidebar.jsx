@@ -12,7 +12,7 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="bg-surface-container-lowest w-[240px] h-full flex-shrink-0 border-r border-border-subtle flex flex-col py-6">
+    <aside className="bg-surface-container-lowest w-[240px] h-full flex-shrink-0 border-r border-border-subtle flex flex-col py-6 ">
       <div className="px-6 mb-8">
         <h1 className="text-headline-md font-headline-md font-bold text-primary flex items-center gap-2">
           <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>

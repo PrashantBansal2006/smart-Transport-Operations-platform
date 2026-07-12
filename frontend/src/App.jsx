@@ -6,6 +6,7 @@ import MaintenancePage from './pages/MaintenancePage';
 import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import VehicleRegistry from './pages/VehicleRegistry';
 import './index.css';
 
 function App() {
@@ -21,7 +22,11 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/drivers" replace />} />
             <Route path="drivers" element={<DriversPage />} />
+<<<<<<< HEAD
             <Route path="maintenance" element={<MaintenancePage />} />
+=======
+            <Route path="fleet" element={<VehicleRegistry />} />
+>>>>>>> f2395907721980fbbf272ce0ae60d7e4b6d637dd
             <Route path="settings" element={<SettingsPage />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
           </Route>

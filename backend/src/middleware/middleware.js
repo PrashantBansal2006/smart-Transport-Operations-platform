@@ -11,6 +11,7 @@ async function authMiddleware(req, res, next) {
     }
     
     if (!token) {
+        
         return res.status(401).json({ success: false, message: "Not authenticated, no token provided" });
     }
     try {
