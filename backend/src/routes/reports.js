@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(authMiddleware);
 
 // Fleet Manager, Safety Officer, and Financial Analyst have access
-router.get('/analytics', requireRole('fleetManager', 'safetyOfficer', 'financialAnalyst'), getAnalytics);
-router.get('/export.csv', requireRole('fleetManager', 'safetyOfficer', 'financialAnalyst'), exportCSV);
+router.get('/analytics', requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), getAnalytics);
+router.get('/export.csv', requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), exportCSV);
 
 export default router;

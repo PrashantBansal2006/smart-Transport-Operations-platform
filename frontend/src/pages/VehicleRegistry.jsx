@@ -12,10 +12,11 @@ export default function VehicleRegistry() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalVehicles, setTotalVehicles] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5000/api/vehicles?page=${page}&limit=5`, { withCredentials: true })
+    axios.get(`http://localhost:5000/api/vehicles?page=${page}&limit=5&search=${encodeURIComponent(searchQuery)}`, { withCredentials: true })
       .then((response) => {
         if (response.data.success) {
           setVehicles(response.data.data);
@@ -25,7 +26,7 @@ export default function VehicleRegistry() {
       })
       .catch((err) => console.error('Error fetching vehicles:', err))
       .finally(() => setLoading(false));
-  }, [page]);
+  }, [page, searchQuery]);
 
   return (
     <>
@@ -69,7 +70,16 @@ export default function VehicleRegistry() {
               </div>
               <div className="relative w-full lg:w-80">
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-lg">search</span>
-                <input className="w-full bg-surface-container-low border border-border-subtle rounded-lg pl-10 pr-4 py-2 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors" placeholder="Search Reg No..." type="text" />
+                <input 
+                  className="w-full bg-surface-container-low border border-border-subtle rounded-lg pl-10 pr-4 py-2 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors" 
+                  placeholder="Search Reg No..." 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setPage(1); // Reset to first page when searching
+                  }}
+                />
               </div>
             </div>
 
