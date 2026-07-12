@@ -70,6 +70,18 @@ export const createVehicle = async (req, res) => {
   }
 };
 
+
+// {
+  // "regNumber": "MH12AB1234",
+  // "nameModel": "Tata 407",
+  // "type": "Truck",
+  // "maxLoadCapacityKg": 4000,
+  // "odometer": 12000,
+  // "acquisitionCost": 850000,
+  // "region": "Mumbai"
+// } 
+// This is the example req.body for the above createVehicle api
+
 export const updateVehicle = async (req, res) => {
   try {
     const vehicle = await Vehicle.findByIdAndUpdate(req.params.id, req.body, {
