@@ -3,12 +3,16 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import DriversPage from './pages/DriversPage';
 import MaintenancePage from './pages/MaintenancePage';
+import FuelExpensesPage from './pages/FuelExpensesPage';
 import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import TripsDispatcher from './pages/TripDispatcher';
 import VehicleRegistry from './pages/VehicleRegistry';
 import DashBoard from './pages/DashBoard';
 import './index.css';
+
+import AnalyticsPage from './pages/AnalyticsPage';
 
 function App() {
   return (
@@ -26,7 +30,13 @@ function App() {
             <Route path="drivers" element={<DriversPage />} />
             <Route path="maintenance" element={<MaintenancePage />} />
             <Route path="fleet" element={<VehicleRegistry />} />
+<<<<<<< HEAD
+=======
+            <Route path="expenses" element={<FuelExpensesPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
+>>>>>>> 3fac8fff370b8a77317e183245a464476771ccdc
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="trips" element={<TripsDispatcher />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
           </Route>
         </Route>
