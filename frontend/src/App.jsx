@@ -7,6 +7,7 @@ import FuelExpensesPage from './pages/FuelExpensesPage';
 import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import TripsDispatcher from './pages/TripDispatcher';
 import VehicleRegistry from './pages/VehicleRegistry';
 import './index.css';
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="expenses" element={<FuelExpensesPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="trips" element={<TripsDispatcher />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
           </Route>
         </Route>
