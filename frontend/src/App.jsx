@@ -7,6 +7,8 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import './index.css';
 
+import AnalyticsPage from './pages/AnalyticsPage';
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +22,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/drivers" replace />} />
             <Route path="drivers" element={<DriversPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
           </Route>
