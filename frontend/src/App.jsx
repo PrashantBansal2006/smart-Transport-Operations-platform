@@ -5,6 +5,7 @@ import DriversPage from './pages/DriversPage';
 import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import TripsDispatcher from './pages/TripDispatcher';
 import './index.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route index element={<Navigate to="/drivers" replace />} />
             <Route path="drivers" element={<DriversPage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="trips" element={<TripsDispatcher />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
           </Route>
         </Route>
