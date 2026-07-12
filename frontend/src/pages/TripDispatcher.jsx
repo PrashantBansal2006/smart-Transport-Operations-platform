@@ -65,7 +65,7 @@ export default function TripsDispatcher() {
         }
         setTrips(filteredData);
       } else {
-        setError(data.error || 'Failed to fetch trips');
+        setError(data.error || data.message || 'Failed to fetch trips');
       }
     } catch (err) {
       setError('Network error. Is the backend running?');
