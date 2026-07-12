@@ -10,6 +10,8 @@ import TripsDispatcher from './pages/TripDispatcher';
 import VehicleRegistry from './pages/VehicleRegistry';
 import './index.css';
 
+import AnalyticsPage from './pages/AnalyticsPage';
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +27,7 @@ function App() {
             <Route path="drivers" element={<DriversPage />} />
             <Route path="maintenance" element={<MaintenancePage />} />
             <Route path="fleet" element={<VehicleRegistry />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="trips" element={<TripsDispatcher />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
