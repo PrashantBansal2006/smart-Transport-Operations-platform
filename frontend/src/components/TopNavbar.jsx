@@ -25,6 +25,7 @@ export default function TopNavbar({ globalSearch, setGlobalSearch }) {
   if (location.pathname.includes('drivers')) searchPlaceholder = "Search drivers, IDs...";
   else if (location.pathname.includes('fleet')) searchPlaceholder = "Search vehicles...";
   else if (location.pathname.includes('trips')) searchPlaceholder = "Search trips...";
+  else if (location.pathname.includes('maintenance')) searchPlaceholder = "Search service logs...";
 
   return (
     <header className="bg-surface-container w-full h-16 border-b border-border-subtle flex-shrink-0 flex justify-between items-center px-6 max-w-container-max mx-auto">

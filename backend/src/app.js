@@ -26,5 +26,6 @@ app.use("/api/drivers", driverRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/trips", tripRoutes)
+app.use("/api/maintenance", maintenceRoutes)
 
 export default app
