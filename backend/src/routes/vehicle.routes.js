@@ -1,5 +1,4 @@
 import express from "express";
-import { authMiddleware } from "../middleware/middleware.js";
 import {
   getVehicles,
   getAvailableVehicles,
