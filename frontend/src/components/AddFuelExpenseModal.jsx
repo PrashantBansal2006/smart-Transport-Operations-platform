@@ -22,7 +22,8 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
   // Fetch vehicles for the dropdown
   useEffect(() => {
     if (isOpen) {
-      axios.get('http://localhost:5000/api/vehicles', { withCredentials: true })
+      const token = localStorage.getItem('token');
+      axios.get('http://localhost:5000/api/vehicles', { headers: { 'Authorization': `Bearer ${token}` } })
         .then(res => {
           if (res.data.success) {
             setVehicles(res.data.data);
@@ -51,7 +52,8 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
           date
         };
 
-        const res = await axios.post('http://localhost:5000/api/fuel-logs', payload, { withCredentials: true });
+        const token = localStorage.getItem('token');
+        const res = await axios.post('http://localhost:5000/api/fuel-logs', payload, { headers: { 'Authorization': `Bearer ${token}` } });
         if (res.data.success) {
           onSuccess();
           resetForm();
@@ -64,7 +66,8 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
           date
         };
 
-        const res = await axios.post('http://localhost:5000/api/expenses', payload, { withCredentials: true });
+        const token = localStorage.getItem('token');
+        const res = await axios.post('http://localhost:5000/api/expenses', payload, { headers: { 'Authorization': `Bearer ${token}` } });
         if (res.data.success) {
           onSuccess();
           resetForm();

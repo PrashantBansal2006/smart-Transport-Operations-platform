@@ -12,9 +12,12 @@ export default function FuelExpensesPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
+      const token = localStorage.getItem('token');
+      const headers = { 'Authorization': `Bearer ${token}` };
+
       const [fuelRes, expenseRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/fuel-logs', { withCredentials: true }),
-        axios.get('http://localhost:5000/api/expenses', { withCredentials: true })
+        axios.get('http://localhost:5000/api/fuel-logs', { headers }),
+        axios.get('http://localhost:5000/api/expenses', { headers })
       ]);
       
       if (fuelRes.data.success) {
@@ -119,7 +122,7 @@ export default function FuelExpensesPage() {
                         ${log.cost?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="table-cell-pad font-data-mono text-text-secondary text-right">
-                        {log.tripId || '-'}
+                        {log.tripId?._id || log.tripId || '-'}
                       </td>
                     </tr>
                   ))
@@ -147,7 +150,7 @@ export default function FuelExpensesPage() {
                         ${exp.amount?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="table-cell-pad font-data-mono text-text-secondary text-right">
-                        {exp.tripId || '-'}
+                        {exp.tripId?._id || exp.tripId || '-'}
                       </td>
                     </tr>
                   ))
