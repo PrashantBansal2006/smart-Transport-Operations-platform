@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('Dispatcher');
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -131,22 +131,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div>
-              <label className="block font-label-caps text-text-secondary mb-2">ROLE (RBAC)</label>
-              <div className="relative">
-                <select 
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  className="w-full bg-bg-surface border border-border-subtle rounded py-3 pl-4 pr-12 font-body-md text-on-surface appearance-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
-                >
-                  <option value="Dispatcher">Dispatcher</option>
-                  <option value="FleetManager">Fleet Manager</option>
-                  <option value="SafetyOfficer">Safety Officer</option>
-                  <option value="FinancialAnalyst">Financial Analyst</option>
-                </select>
-                <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none">expand_more</span>
-              </div>
-            </div>
+
 
             <div className="flex items-center justify-between pt-1">
               <label className="flex items-center gap-3 cursor-pointer group">

@@ -17,10 +17,13 @@ export default function SettingsPage() {
   const handleSave = async () => {
     setSaveStatus('saving');
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch('http://localhost:5000/api/auth/depot', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'true', // actually the backend accepts cookies
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({ depotName })
       });
       const data = await res.json();
