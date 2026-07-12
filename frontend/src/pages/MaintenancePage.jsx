@@ -159,8 +159,8 @@ export default function MaintenancePage() {
 
   // Format currency
   const formatCost = (cost) => {
-    if (cost === undefined || cost === null) return '--';
-    return `$${Number(cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    if (cost === undefined || cost === null) return '-';
+    return `₹${Number(cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
   // Generate work order ID from Mongo _id
@@ -532,7 +532,7 @@ export default function MaintenancePage() {
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary font-data-mono">
-                    $
+                    ₹
                   </span>
                   <input
                     type="number"

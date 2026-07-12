@@ -173,7 +173,7 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
                 />
               </div>
               <div>
-                <label className="block text-label-caps text-text-secondary mb-1">Total Cost ($)</label>
+                <label className="block text-label-caps text-text-secondary mb-1">Total Cost (₹)</label>
                 <input 
                   type="number" 
                   step="0.01"
@@ -203,7 +203,7 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
                 </div>
               </div>
               <div>
-                <label className="block text-label-caps text-text-secondary mb-1">Amount ($)</label>
+                <label className="block text-label-caps text-text-secondary mb-1">Amount (₹)</label>
                 <input 
                   type="number" 
                   step="0.01"

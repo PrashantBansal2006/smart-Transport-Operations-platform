@@ -78,12 +78,12 @@ export default function FuelExpensesPage() {
                 {activeTab === 'fuel' ? (
                   <>
                     <th className="table-cell-pad text-label-caps font-label-caps text-text-secondary uppercase tracking-wide text-right">Liters</th>
-                    <th className="table-cell-pad text-label-caps font-label-caps text-text-secondary uppercase tracking-wide text-right">Cost ($)</th>
+                    <th className="table-cell-pad text-label-caps font-label-caps text-text-secondary uppercase tracking-wide text-right">Cost (₹)</th>
                   </>
                 ) : (
                   <>
                     <th className="table-cell-pad text-label-caps font-label-caps text-text-secondary uppercase tracking-wide">Expense Type</th>
-                    <th className="table-cell-pad text-label-caps font-label-caps text-text-secondary uppercase tracking-wide text-right">Amount ($)</th>
+                    <th className="table-cell-pad text-label-caps font-label-caps text-text-secondary uppercase tracking-wide text-right">Amount (₹)</th>
                   </>
                 )}
                 <th className="table-cell-pad text-label-caps font-label-caps text-text-secondary uppercase tracking-wide text-right">Trip ID</th>
@@ -116,7 +116,7 @@ export default function FuelExpensesPage() {
                         {log.liters?.toFixed(2)} L
                       </td>
                       <td className="table-cell-pad font-data-mono text-status-warning text-right">
-                        ${log.cost?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        ₹{log.cost?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="table-cell-pad font-data-mono text-text-secondary text-right">
                         {log.tripId || '-'}
@@ -144,7 +144,7 @@ export default function FuelExpensesPage() {
                         {exp.type}
                       </td>
                       <td className="table-cell-pad font-data-mono text-status-warning text-right">
-                        ${exp.amount?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        ₹{exp.amount?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="table-cell-pad font-data-mono text-text-secondary text-right">
                         {exp.tripId || '-'}
