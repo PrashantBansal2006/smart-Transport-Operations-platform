@@ -9,7 +9,6 @@ import reportRoutes from './routes/reports.js';
 import cors from 'cors'
 import fuelLogRoutes from "./routes/fuelLog.routes.js";
 import expenseRoutes from "./routes/expense.routes.js";
-import vehicleRoutes from "./routes/vehicle.routes.js";
 const app=express()
 
 app.use(cors())
