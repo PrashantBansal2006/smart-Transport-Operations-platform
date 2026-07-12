@@ -95,4 +95,18 @@ async function logout(req, res) {
     }
 }
 
-export { register, login, logout }
+async function updateDepot(req, res) {
+    try {
+        const { depotName } = req.body;
+        const user = await UserModel.findByIdAndUpdate(req.user.id, { depotName }, { new: true }).select('-password');
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        res.status(200).json({ success: true, message: "Depot name updated", user });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+}
+
+export { register, login, logout, updateDepot }
