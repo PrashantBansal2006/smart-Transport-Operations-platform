@@ -1,4 +1,4 @@
-import FuelLog from "../model/FuelLog.js";
+import FuelLog from "../model/fuelLog.js";
 
 export const createFuelLog = async (req, res) => {
   try {
