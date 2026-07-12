@@ -75,6 +75,32 @@ export default function AnalyticsPage() {
     icon: 'local_shipping'
   }));
 
+  const handleExport = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('http://localhost:5000/api/reports/export.csv', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      if (!res.ok) throw new Error('Export failed');
+      
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'fleet_report.csv';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error('Error downloading CSV:', err);
+      alert('Failed to download CSV report.');
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -84,12 +110,7 @@ export default function AnalyticsPage() {
           <p className="text-body-md text-text-secondary mt-1">Live fleet performance and operational metrics.</p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 bg-surface-container border border-border-subtle rounded-lg text-on-surface hover:bg-surface-container-high transition-colors text-body-md">
-            <span className="material-symbols-outlined text-[18px]">calendar_today</span>
-            Lifetime
-            <span className="material-symbols-outlined text-[18px]">arrow_drop_down</span>
-          </button>
-          <button className="flex items-center gap-2 px-5 py-2 bg-primary-container text-on-primary-container font-medium rounded-lg hover:brightness-110 transition-colors text-body-md" onClick={() => window.open('http://localhost:5000/api/reports/export.csv')}>
+          <button className="flex items-center gap-2 px-5 py-2 bg-primary-container text-on-primary-container font-medium rounded-lg hover:brightness-110 transition-colors text-body-md" onClick={handleExport}>
             <span className="material-symbols-outlined text-[18px]">download</span>
             Export CSV
           </button>
