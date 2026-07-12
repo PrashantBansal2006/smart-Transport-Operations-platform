@@ -4,10 +4,7 @@ import UserModel from '../model/UserModel.js'
 dotenv.config()
 
 async function authMiddleware(req, res, next) {
-    const bearerToken = req.headers.authorization?.startsWith("Bearer ")
-        ? req.headers.authorization.split(" ")[1]
-        : null;
-    const token = req.cookies?.token || bearerToken;
+    const token = req.cookies.token;
     if (!token) {
         return res.status(401).json({ success: false, message: "Not authenticated, no token provided" });
     }
