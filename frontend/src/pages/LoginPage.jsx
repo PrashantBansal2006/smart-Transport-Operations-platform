@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -48,7 +49,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen bg-background w-full">
-      {/* Left Sidebar - Branding & Roles */}
+      {/* Left Sidebar */}
       <div className="hidden lg:flex lg:w-8/17 flex-shrink-0 bg-bg-surface border-r border-border-subtle flex-col p-12 relative">
         <div className="mt-4">
           <h1 className="font-headline-lg text-on-surface flex items-center gap-3 mb-2">
@@ -90,7 +91,6 @@ export default function LoginPage() {
       {/* Right Side - Login Form */}
       <div className="w-full lg:w-1/2 flex-shrink-0 flex items-center justify-center p-8 bg-background">
         <div className="w-full max-w-[420px]">
-          
           <div className="mb-10">
             <h2 className="font-headline-lg text-on-surface mb-2">Sign in to your account</h2>
             <p className="text-text-secondary font-body-md">Enter your credentials to continue</p>
@@ -119,20 +119,24 @@ export default function LoginPage() {
               <label className="block font-label-caps text-text-secondary mb-2">PASSWORD</label>
               <div className="relative">
                 <input 
-                  type="password" 
+                  type={showPassword ? 'text' : 'password'} // Changed to toggle
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-bg-surface border border-border-subtle rounded py-3 pl-4 pr-12 font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-text-secondary/50"
                   placeholder="••••••••"
                 />
-                <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-on-surface transition-colors">
-                  <span className="material-symbols-outlined text-[20px]">visibility_off</span>
+                <button 
+                  type="button" 
+                  onClick={() => setShowPassword(!showPassword)} // Added toggle function
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-on-surface transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[20px]">
+                    {showPassword ? 'visibility' : 'visibility_off'}
+                  </span>
                 </button>
               </div>
             </div>
-
-
 
             <div className="flex items-center justify-between pt-1">
               <label className="flex items-center gap-3 cursor-pointer group">
@@ -141,7 +145,6 @@ export default function LoginPage() {
                 </div>
                 <span className="text-text-secondary font-body-md group-hover:text-on-surface transition-colors">Remember me</span>
               </label>
-              
               <a href="#" className="text-primary font-body-md hover:underline">Forgot password?</a>
             </div>
 
