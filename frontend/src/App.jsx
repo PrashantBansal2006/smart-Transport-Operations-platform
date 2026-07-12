@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import TripsDispatcher from './pages/TripDispatcher';
 import VehicleRegistry from './pages/VehicleRegistry';
+import DashBoard from './pages/DashBoard';
 import './index.css';
 
 import AnalyticsPage from './pages/AnalyticsPage';
@@ -24,7 +25,8 @@ function App() {
         {/* Protected Dashboard Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Navigate to="/drivers" replace />} />
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<DashBoard />} />
             <Route path="drivers" element={<DriversPage />} />
             <Route path="maintenance" element={<MaintenancePage />} />
             <Route path="fleet" element={<VehicleRegistry />} />

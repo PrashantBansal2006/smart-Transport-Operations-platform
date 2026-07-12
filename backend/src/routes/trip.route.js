@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-router.get('/', authMiddleware, requireRole("Dispatcher"), getTrips);
+router.get('/', authMiddleware, requireRole("Dispatcher", "FinancialAnalyst"), getTrips);
 router.post('/', authMiddleware, requireRole("Dispatcher"), createTrip);
 router.post('/:id/dispatch', authMiddleware, requireRole("Dispatcher"), dispatchTripHandler);
 router.post('/:id/complete', authMiddleware, requireRole("Dispatcher"), completeTripHandler);

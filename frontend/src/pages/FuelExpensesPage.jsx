@@ -119,7 +119,7 @@ export default function FuelExpensesPage() {
                         ₹{log.cost?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="table-cell-pad font-data-mono text-text-secondary text-right">
-                        {log.tripId || '-'}
+                        {log.tripId?.tripCode || '-'}
                       </td>
                     </tr>
                   ))
@@ -147,7 +147,7 @@ export default function FuelExpensesPage() {
                         ₹{exp.amount?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
                       <td className="table-cell-pad font-data-mono text-text-secondary text-right">
-                        {exp.tripId || '-'}
+                        {exp.tripId?.tripCode || '-'}
                       </td>
                     </tr>
                   ))

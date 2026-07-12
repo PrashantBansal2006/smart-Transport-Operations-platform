@@ -4,11 +4,13 @@ import axios from 'axios';
 export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
   const [entryType, setEntryType] = useState('fuel'); // 'fuel' or 'expense'
   const [vehicles, setVehicles] = useState([]);
+  const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // Form State
   const [vehicleId, setVehicleId] = useState('');
+  const [tripId, setTripId] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   
   // Fuel specific
@@ -19,7 +21,7 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
   const [expenseType, setExpenseType] = useState('Toll');
   const [amount, setAmount] = useState('');
 
-  // Fetch vehicles for the dropdown
+  // Fetch vehicles and trips for the dropdowns
   useEffect(() => {
     if (isOpen) {
       axios.get('http://localhost:5000/api/vehicles', { withCredentials: true })
@@ -32,6 +34,14 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
           }
         })
         .catch(err => console.error("Error fetching vehicles for modal", err));
+        
+      axios.get('http://localhost:5000/api/trips', { withCredentials: true })
+        .then(res => {
+          if (res.data.success) {
+            setTrips(res.data.data);
+          }
+        })
+        .catch(err => console.error("Error fetching trips for modal", err));
     }
   }, [isOpen]);
 
@@ -50,6 +60,7 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
           cost: Number(cost),
           date
         };
+        if (tripId) payload.tripId = tripId;
 
         const res = await axios.post('http://localhost:5000/api/fuel-logs', payload, { withCredentials: true });
         if (res.data.success) {
@@ -63,6 +74,7 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
           amount: Number(amount),
           date
         };
+        if (tripId) payload.tripId = tripId;
 
         const res = await axios.post('http://localhost:5000/api/expenses', payload, { withCredentials: true });
         if (res.data.success) {
@@ -82,6 +94,7 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
     setLiters('');
     setCost('');
     setAmount('');
+    setTripId('');
     setError(null);
     onClose();
   };
@@ -144,7 +157,7 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-label-caps text-text-secondary mb-1">Date</label>
               <input 
@@ -154,6 +167,22 @@ export default function AddFuelExpenseModal({ isOpen, onClose, onSuccess }) {
                 onChange={(e) => setDate(e.target.value)}
                 className="w-full bg-surface-container-low border border-border-subtle rounded py-2 px-3 text-body-md text-on-surface focus:outline-none focus:border-primary"
               />
+            </div>
+            <div>
+              <label className="block text-label-caps text-text-secondary mb-1">Trip ID (Optional)</label>
+              <div className="relative">
+                <select 
+                  value={tripId}
+                  onChange={(e) => setTripId(e.target.value)}
+                  className="w-full bg-surface-container-low border border-border-subtle rounded py-2 pl-3 pr-10 text-body-md text-on-surface focus:outline-none focus:border-primary appearance-none"
+                >
+                  <option value="">None</option>
+                  {trips.map(t => (
+                    <option key={t._id} value={t._id}>{t.tripCode} - {t.source} to {t.destination}</option>
+                  ))}
+                </select>
+                <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none">expand_more</span>
+              </div>
             </div>
           </div>
 
