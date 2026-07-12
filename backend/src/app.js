@@ -3,6 +3,8 @@ import authRoutes from './routes/authRoutes.js'
 import cookieParser from 'cookie-parser'
 import vehicleRoutes from './routes/vehicle.routes.js';
 import driverRoutes from './routes/driver.js';
+import dashboardRoutes from './routes/dashboard.js';
+import reportRoutes from './routes/reports.js';
 
 import cors from 'cors'
 const app=express()
@@ -16,5 +18,7 @@ app.use(cors())
 app.use('/api/auth',authRoutes)
 app.use("/api/vehicles", vehicleRoutes);
 app.use("/api/drivers", driverRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/reports", reportRoutes);
 
 export default app

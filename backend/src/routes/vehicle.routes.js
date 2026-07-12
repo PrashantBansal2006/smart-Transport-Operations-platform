@@ -1,5 +1,5 @@
 import express from "express";
-import protectRoute from "../middleware/middleare.js";
+import { authMiddleware as protectRoute } from "../middleware/middleware.js";
 import {
   getVehicles,
   getAvailableVehicles,
