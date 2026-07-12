@@ -12,8 +12,8 @@ const router = express.Router();
 
 router.use(authMiddleware); // all vehicle routes require authentication
 
-router.get("/available",  requireRole("FleetManager", "Dispatcher", "SafetyOfficer"), getAvailableVehicles); // GET    /api/vehicles/available
-router.get("/",           requireRole("FleetManager", "Dispatcher", "SafetyOfficer"), getVehicles);          // GET    /api/vehicles
+router.get("/available",  requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), getAvailableVehicles); // GET    /api/vehicles/available
+router.get("/",           requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), getVehicles);          // GET    /api/vehicles
 router.post("/",          requireRole("FleetManager"), createVehicle);                                       // POST   /api/vehicles
 router.put("/:id",        requireRole("FleetManager"), updateVehicle);                                       // PUT    /api/vehicles/:id
 router.delete("/:id",     requireRole("FleetManager"), deleteVehicle);                                       // DELETE /api/vehicles/:id
