@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.use(authMiddleware); // all expense routes require authentication
 
-router.get("/",  requireRole("FleetManager", "FinancialAnalyst"), getExpenses);   // GET  /api/expenses
+router.get("/",  requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), getExpenses);   // GET  /api/expenses
 router.post("/", requireRole("FleetManager", "FinancialAnalyst"), createExpense); // POST /api/expenses
 
 export default router;

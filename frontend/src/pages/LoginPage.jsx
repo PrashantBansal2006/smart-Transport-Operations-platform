@@ -5,6 +5,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -136,8 +137,14 @@ export default function LoginPage() {
 
             <div className="flex items-center justify-between pt-1">
               <label className="flex items-center gap-3 cursor-pointer group">
-                <div className="w-[18px] h-[18px] rounded-[4px] bg-primary flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[14px] text-on-primary font-bold" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
+                <input 
+                  type="checkbox" 
+                  className="hidden" 
+                  checked={rememberMe} 
+                  onChange={(e) => setRememberMe(e.target.checked)} 
+                />
+                <div className={`w-[18px] h-[18px] rounded-[4px] border flex items-center justify-center transition-colors ${rememberMe ? 'bg-primary border-primary' : 'border-border-subtle bg-bg-surface'}`}>
+                  {rememberMe && <span className="material-symbols-outlined text-[14px] text-on-primary font-bold" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>}
                 </div>
                 <span className="text-text-secondary font-body-md group-hover:text-on-surface transition-colors">Remember me</span>
               </label>
