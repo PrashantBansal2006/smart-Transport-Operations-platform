@@ -30,11 +30,6 @@ function App() {
             <Route path="drivers" element={<DriversPage />} />
             <Route path="maintenance" element={<MaintenancePage />} />
             <Route path="fleet" element={<VehicleRegistry />} />
-<<<<<<< HEAD
-=======
-            <Route path="expenses" element={<FuelExpensesPage />} />
-            <Route path="analytics" element={<AnalyticsPage />} />
->>>>>>> 3fac8fff370b8a77317e183245a464476771ccdc
             <Route path="settings" element={<SettingsPage />} />
             <Route path="trips" element={<TripsDispatcher />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
