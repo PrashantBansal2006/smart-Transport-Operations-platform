@@ -27,4 +27,3 @@ const fuelLogSchema = new mongoose.Schema({
 
 const FuelLog = mongoose.model('FuelLog', fuelLogSchema);
 export default FuelLog;
-
