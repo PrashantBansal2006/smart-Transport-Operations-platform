@@ -7,8 +7,8 @@ const router = express.Router();
 router.use(authMiddleware);
 
 // GET routes: allowed for 'dispatcher' and 'safetyOfficer' (dispatcher can view)
-router.get('/available', requireRole('dispatcher', 'safetyOfficer'), getAvailableDrivers);
-router.get('/', requireRole('dispatcher', 'safetyOfficer'), getDrivers);
+router.get('/available', requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), getAvailableDrivers);
+router.get('/', requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), getDrivers);
 
 // POST/PUT routes: allowed ONLY for 'safetyOfficer'
 router.post('/', requireRole('safetyOfficer'), createDriver);
