@@ -31,7 +31,7 @@ export default function TopNavbar({ globalSearch, setGlobalSearch }) {
     <header className="bg-surface-container w-full h-16 border-b border-border-subtle flex-shrink-0 flex justify-between items-center px-6 max-w-container-max mx-auto">
       <div className="flex items-center gap-4 w-1/3">
         {/* Search on left per JSON, conditionally hidden on pages that don't need it */}
-        {!['/', '/settings', '/analytics', '/maintenance', '/expenses'].includes(location.pathname) && (
+        {!['/', '/dashboard', '/fleet', '/settings', '/analytics', '/maintenance', '/expenses'].includes(location.pathname) && (
           <div className="relative w-full max-w-md">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">
               search

@@ -10,11 +10,11 @@ import {
 
 const router = Router();
 
-router.get('/', authMiddleware, requireRole('fleetManager', 'dispatcher', 'safetyOfficer', 'financialAnalyst'), getTrips);
-router.post('/', authMiddleware, requireRole("Dispatcher", "FleetManager", "SafetyOfficer", "FinancialAnalyst"), createTrip);
-router.post('/:id/dispatch', authMiddleware, requireRole("Dispatcher", "FleetManager", "SafetyOfficer", "FinancialAnalyst"), dispatchTripHandler);
-router.post('/:id/complete', authMiddleware, requireRole("Dispatcher", "FleetManager", "SafetyOfficer", "FinancialAnalyst"), completeTripHandler);
-router.post('/:id/cancel', authMiddleware, requireRole("Dispatcher", "FleetManager", "SafetyOfficer", "FinancialAnalyst"), cancelTripHandler);
+router.get('/', authMiddleware, requireRole("Dispatcher", "FleetManager", "SafetyOfficer", "FinancialAnalyst"), getTrips);
+router.post('/', authMiddleware, requireRole("Dispatcher", "FleetManager"), createTrip);
+router.post('/:id/dispatch', authMiddleware, requireRole("Dispatcher", "FleetManager"), dispatchTripHandler);
+router.post('/:id/complete', authMiddleware, requireRole("Dispatcher", "FleetManager"), completeTripHandler);
+router.post('/:id/cancel', authMiddleware, requireRole("Dispatcher", "FleetManager"), cancelTripHandler);
 
 
 // router.get('/', getTrips);

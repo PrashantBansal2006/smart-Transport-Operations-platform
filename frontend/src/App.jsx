@@ -28,6 +28,8 @@ function App() {
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<DashBoard />} />
             <Route path="drivers" element={<DriversPage />} />
+            <Route path="expenses" element={<FuelExpensesPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="maintenance" element={<MaintenancePage />} />
             <Route path="fleet" element={<VehicleRegistry />} />
             <Route path="expenses" element={<FuelExpensesPage />} />
