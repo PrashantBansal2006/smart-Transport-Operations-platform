@@ -15,9 +15,9 @@ export const getDrivers = async (req, res) => {
     }
 
     const drivers = await Driver.find(query).sort({ createdAt: -1 });
-    res.status(200).json(drivers);
+    res.status(200).json({ success: true, data: drivers });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching drivers", error: error.message });
+    res.status(500).json({ success: false, message: "Error fetching drivers", error: error.message });
   }
 };
 
@@ -36,9 +36,9 @@ export const getAvailableDrivers = async (req, res) => {
     };
 
     const drivers = await Driver.find(query).sort({ createdAt: -1 });
-    res.status(200).json(drivers);
+    res.status(200).json({ success: true, data: drivers });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching available drivers", error: error.message });
+    res.status(500).json({ success: false, message: "Error fetching available drivers", error: error.message });
   }
 };
 
@@ -57,9 +57,12 @@ export const createDriver = async (req, res) => {
     });
 
     const savedDriver = await newDriver.save();
-    res.status(201).json(savedDriver);
+    res.status(201).json({ success: true, data: savedDriver });
   } catch (error) {
-    res.status(500).json({ message: "Error creating driver", error: error.message });
+    if (error.code === 11000) {
+      return res.status(400).json({ success: false, message: "A driver with this license number already exists." });
+    }
+    res.status(500).json({ success: false, message: error.message || "Error creating driver", error: error.message });
   }
 };
 
@@ -81,11 +84,11 @@ export const updateDriver = async (req, res) => {
     );
 
     if (!updatedDriver) {
-      return res.status(404).json({ message: "Driver not found" });
+      return res.status(404).json({ success: false, message: "Driver not found" });
     }
 
-    res.status(200).json(updatedDriver);
+    res.status(200).json({ success: true, data: updatedDriver });
   } catch (error) {
-    res.status(500).json({ message: "Error updating driver", error: error.message });
+    res.status(500).json({ success: false, message: "Error updating driver", error: error.message });
   }
 };

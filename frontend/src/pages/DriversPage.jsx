@@ -33,11 +33,16 @@ export default function DriversPage() {
   const fetchDrivers = async () => {
     setLoading(true);
     try {
+      const token = localStorage.getItem('token');
       let url = 'http://localhost:5000/api/drivers?';
       if (statusFilter !== 'All') url += `status=${statusFilter}&`;
       if (globalSearch) url += `search=${encodeURIComponent(globalSearch)}&`;
         
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const data = await res.json();
       if (data.success) {
         setDrivers(data.data);
@@ -56,9 +61,13 @@ export default function DriversPage() {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
+      const token = localStorage.getItem('token');
       const res = await fetch('http://localhost:5000/api/drivers', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify(formData)
       });
       const data = await res.json();
