@@ -78,6 +78,20 @@ export default function Sidebar() {
             </>
           )}
         </NavLink>
+        
+        <div className="mt-auto pt-4 border-t border-border-subtle mx-4">
+          <button 
+            onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('user');
+              window.location.href = '/login';
+            }}
+            className="flex w-full items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors font-medium"
+          >
+            <span className="material-symbols-outlined text-[20px]">logout</span>
+            <span className="font-body-md text-left">Log out</span>
+          </button>
+        </div>
       </nav>
     </aside>
   );

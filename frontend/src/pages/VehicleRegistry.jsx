@@ -22,13 +22,7 @@ export default function VehicleRegistry() {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-background w-full">
-
-      <Sidebar />
-      <div className="flex-1 flex flex-col min-w-0 bg-background">
-        <TopNavbar />
-        <main className="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop bg-surface-dim">
-          <div className="max-w-container-max mx-auto space-y-6">
+    <>
             {/* Header Section */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
               <div>
@@ -157,10 +151,6 @@ export default function VehicleRegistry() {
             <p className="text-label-caps text-text-secondary/70 mt-4 max-w-2xl">
               Rule: Registration No. must be unique. * Retired/In Shop vehicles are hidden from Trip Dispatcher.
             </p>
-          </div>
-        </main>
-      </div>
-
       <AddVehicleModal 
         isOpen={isAddModalOpen} 
         onClose={() => setIsAddModalOpen(false)} 
@@ -169,6 +159,6 @@ export default function VehicleRegistry() {
           setIsAddModalOpen(false);
         }} 
       />
-    </div>
+    </>
   );
 }

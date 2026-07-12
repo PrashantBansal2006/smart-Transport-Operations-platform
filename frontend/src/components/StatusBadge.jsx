@@ -1,27 +1,35 @@
 import React from 'react';
 
-export default function StatusBadge({ status }) {
-  // Normalize status string for case-insensitive matching
-  const normalizedStatus = status?.toLowerCase() || '';
-
-  // Determine colors based on status per PRD
-  let colors = '';
+const STATUS_CONFIG = {
+  // Green
+  Available: { bg: 'bg-status-success/15', text: 'text-status-success', dot: 'bg-status-success' },
+  Completed: { bg: 'bg-status-success/15', text: 'text-status-success', dot: 'bg-status-success' },
+  Active: { bg: 'bg-status-success/15', text: 'text-status-success', dot: 'bg-status-success' },
   
-  if (['available', 'completed', 'active'].includes(normalizedStatus)) {
-    colors = 'bg-status-success/15 text-status-success border-status-success/20';
-  } else if (['on trip', 'dispatched'].includes(normalizedStatus)) {
-    colors = 'bg-status-info/15 text-status-info border-status-info/20';
-  } else if (['in shop', 'pending', 'draft'].includes(normalizedStatus)) {
-    colors = 'bg-status-warning/15 text-status-warning border-status-warning/20';
-  } else if (['retired', 'suspended', 'cancelled'].includes(normalizedStatus)) {
-    colors = 'bg-status-danger/15 text-status-danger border-status-danger/20';
-  } else {
-    // Default fallback
-    colors = 'bg-surface-container-high text-text-secondary border-border-subtle';
-  }
+  // Blue
+  'On Trip': { bg: 'bg-status-info/15', text: 'text-status-info', dot: 'bg-status-info' },
+  Dispatched: { bg: 'bg-status-info/15', text: 'text-status-info', dot: 'bg-status-info' },
+  
+  // Orange/Amber (mapped to primary)
+  'In Shop': { bg: 'bg-primary/15', text: 'text-primary', dot: 'bg-primary' },
+  Pending: { bg: 'bg-primary/15', text: 'text-primary', dot: 'bg-primary' },
+  Draft: { bg: 'bg-primary/15', text: 'text-primary', dot: 'bg-primary' },
+  
+  // Red
+  Retired: { bg: 'bg-status-danger/15', text: 'text-status-danger', dot: 'bg-status-danger' },
+  Suspended: { bg: 'bg-status-danger/15', text: 'text-status-danger', dot: 'bg-status-danger' },
+  Cancelled: { bg: 'bg-status-danger/15', text: 'text-status-danger', dot: 'bg-status-danger' },
 
+  // Gray/Neutral
+  'Off Duty': { bg: 'bg-secondary-container', text: 'text-on-surface-variant', dot: 'bg-on-surface-variant' }
+};
+
+export default function StatusBadge({ status }) {
+  const config = STATUS_CONFIG[status] || STATUS_CONFIG['Off Duty']; // Fallback
+  
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${colors}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded ${config.bg} ${config.text} text-[12px] font-bold tracking-wide uppercase`}>
+      <span className={`w-1.5 h-1.5 rounded-full ${config.dot}`}></span>
       {status}
     </span>
   );

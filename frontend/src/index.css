@@ -1,107 +1,16 @@
 @import "tailwindcss";
-
-@theme {
-  --color-error: #ffb4ab;
-  --color-tertiary-container: #2ab4e7;
-  --color-background: #10131a;
-  --color-secondary-container: #444955;
-  --color-surface-bright: #363940;
-  --color-surface-container-low: #191c22;
-  --color-primary-fixed: #ffdcbc;
-  --color-border-subtle: #2A303C;
-  --color-on-secondary-fixed-variant: #424753;
-  --color-on-surface-variant: #d8c3b0;
-  --color-primary: #ffb86b;
-  --color-on-primary: #492900;
-  --color-on-tertiary-container: #004258;
-  --color-on-primary-fixed-variant: #683d00;
-  --color-tertiary-fixed-dim: #70d2ff;
-  --color-on-tertiary-fixed-variant: #004d66;
-  --color-status-success: #3ECF6E;
-  --color-tertiary-fixed: #c0e8ff;
-  --color-secondary-fixed-dim: #c2c6d5;
-  --color-inverse-on-surface: #2e3037;
-  --color-surface-container: #1d2026;
-  --color-surface-container-high: #272a31;
-  --color-primary-container: #e8952e;
-  --color-inverse-primary: #895100;
-  --color-error-container: #93000a;
-  --color-on-error-container: #ffdad6;
-  --color-on-primary-container: #5a3400;
-  --color-status-danger: #E8544E;
-  --color-secondary: #c2c6d5;
-  --color-on-secondary-fixed: #171c26;
-  --color-on-tertiary-fixed: #001e2b;
-  --color-surface-dim: #10131a;
-  --color-on-error: #690005;
-  --color-surface: #10131a;
-  --color-on-secondary-container: #b4b8c7;
-  --color-on-background: #e1e2eb;
-  --color-outline: #a08d7c;
-  --color-inverse-surface: #e1e2eb;
-  --color-bg-surface: #141821;
-  --color-surface-container-lowest: #0b0e14;
-  --color-primary-fixed-dim: #ffb86b;
-  --color-tertiary: #70d2ff;
-  --color-on-secondary: #2b303c;
-  --color-on-tertiary: #003547;
-  --color-status-info: #3B9CE8;
-  --color-secondary-fixed: #dee2f1;
-  --color-surface-tint: #ffb86b;
-  --color-on-surface: #e1e2eb;
-  --color-surface-container-highest: #32353c;
-  --color-text-secondary: #8A93A3;
-  --color-outline-variant: #534436;
-  --color-on-primary-fixed: #2c1700;
-  --color-surface-variant: #32353c;
-  --color-status-warning: #F59E0B;
-
-  --spacing-container-max: 1440px;
-  --spacing-component-gap: 0.75rem;
-  --spacing-margin-desktop: 1.5rem;
-  --spacing-gutter: 1rem;
-  --spacing-margin-mobile: 1rem;
-
-  --font-headline-lg: Inter, sans-serif;
-  --font-headline-md: Inter, sans-serif;
-  --font-body-md: Inter, sans-serif;
-  --font-body-lg: Inter, sans-serif;
-  --font-label-caps: Inter, sans-serif;
-  --font-headline-lg-mobile: Inter, sans-serif;
-  --font-data-mono: Inter, sans-serif;
-
-  --text-headline-lg: 24px;
-  --text-headline-lg--line-height: 32px;
-  --text-headline-lg--letter-spacing: -0.02em;
-  --text-headline-lg--font-weight: 600;
-
-  --text-headline-md: 20px;
-  --text-headline-md--line-height: 28px;
-  --text-headline-md--letter-spacing: -0.01em;
-  --text-headline-md--font-weight: 600;
-
-  --text-body-md: 14px;
-  --text-body-md--line-height: 20px;
-  --text-body-md--font-weight: 400;
-
-  --text-body-lg: 16px;
-  --text-body-lg--line-height: 24px;
-  --text-body-lg--font-weight: 400;
-
-  --text-label-caps: 12px;
-  --text-label-caps--line-height: 16px;
-  --text-label-caps--letter-spacing: 0.05em;
-  --text-label-caps--font-weight: 600;
-
-  --text-headline-lg-mobile: 20px;
-  --text-headline-lg-mobile--line-height: 28px;
-  --text-headline-lg-mobile--font-weight: 600;
-
-  --text-data-mono: 13px;
-  --text-data-mono--line-height: 18px;
-  --text-data-mono--font-weight: 500;
-}
+@config "../tailwind.config.js";
 
 @layer utilities {
-    .table-cell-pad { @apply py-3 px-4; }
+  /* Custom scrollbar for industrial aesthetic */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #10131a; }
+  ::-webkit-scrollbar-thumb { background: #2A303C; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #444955; }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
 }
