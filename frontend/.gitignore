@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+vehicle_registry
+transitops_PRD
+transitops_prd_architecture.md
