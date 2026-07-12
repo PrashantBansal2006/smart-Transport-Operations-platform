@@ -192,7 +192,7 @@ export default function DriversPage() {
                       {formatExpiry(driver.licenseExpiryDate)} {expired && 'EXPIRED'}
                     </td>
                     <td className="py-3 px-4 text-text-secondary font-data-mono">{driver.contactNumber}</td>
-                    <td className="py-3 px-4 text-right font-data-mono text-on-surface">--</td>
+                    <td className="py-3 px-4 text-right font-data-mono text-on-surface">{driver.tripsCompleted || 0}</td>
                     <td className={`py-3 px-4 text-right font-data-mono ${driver.safetyScore < 60 ? 'text-status-danger' : 'text-status-success'}`}>
                       {driver.safetyScore}/100
                     </td>

@@ -94,6 +94,7 @@ export const completeTrip = async (tripId, { finalOdometer, fuelConsumedLiters }
   vehicle.status = "Available";
   vehicle.odometer = finalOdometer;
   driver.status = "Available";
+  driver.tripsCompleted = (driver.tripsCompleted || 0) + 1;
 
   await trip.save();
   await vehicle.save();
