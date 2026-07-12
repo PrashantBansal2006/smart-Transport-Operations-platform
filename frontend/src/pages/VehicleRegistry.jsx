@@ -9,17 +9,23 @@ export default function VehicleRegistry() {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalVehicles, setTotalVehicles] = useState(0);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/vehicles')
+    setLoading(true);
+    axios.get(`http://localhost:5000/api/vehicles?page=${page}&limit=5`, { withCredentials: true })
       .then((response) => {
         if (response.data.success) {
           setVehicles(response.data.data);
+          setTotalPages(response.data.totalPages || 1);
+          setTotalVehicles(response.data.totalCount || 0);
         }
       })
       .catch((err) => console.error('Error fetching vehicles:', err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -135,13 +141,21 @@ export default function VehicleRegistry() {
               {/* Table Footer / Pagination */}
               <div className="bg-surface-container-low px-4 py-3 border-t border-border-subtle flex items-center justify-between text-body-md text-text-secondary">
                 <div>
-                  Showing <span className="font-medium text-on-surface-variant">{vehicles.length > 0 ? 1 : 0}</span> to <span className="font-medium text-on-surface-variant">{vehicles.length}</span> of <span className="font-medium text-on-surface-variant">{vehicles.length}</span> vehicles
+                  Showing <span className="font-medium text-on-surface-variant">{vehicles.length > 0 ? (page - 1) * 5 + 1 : 0}</span> to <span className="font-medium text-on-surface-variant">{Math.min(page * 5, totalVehicles)}</span> of <span className="font-medium text-on-surface-variant">{totalVehicles}</span> vehicles
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="p-1 rounded hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled>
+                  <button 
+                    onClick={() => setPage(p => Math.max(1, p - 1))}
+                    disabled={page === 1}
+                    className="p-1 rounded hover:bg-surface-container-high transition-colors disabled:opacity-50 cursor-pointer"
+                  >
                     <span className="material-symbols-outlined">chevron_left</span>
                   </button>
-                  <button className="p-1 rounded hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled>
+                  <button 
+                    onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                    disabled={page >= totalPages}
+                    className="p-1 rounded hover:bg-surface-container-high transition-colors disabled:opacity-50 cursor-pointer"
+                  >
                     <span className="material-symbols-outlined">chevron_right</span>
                   </button>
                 </div>

@@ -2,7 +2,7 @@ import Vehicle from "../model/vehicle.model.js";
 
 export const getVehicles = async (req, res) => {
   try {
-    const { type, status, region, search } = req.query;
+    const { type, status, region, search, page = 1, limit = 5 } = req.query;
 
     const filter = {};
 
@@ -17,9 +17,22 @@ export const getVehicles = async (req, res) => {
       ];
     }
 
-    const vehicles = await Vehicle.find(filter).sort({ createdAt: -1 });
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const totalCount = await Vehicle.countDocuments(filter);
+    
+    const vehicles = await Vehicle.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit));
 
-    res.status(200).json({ success: true, count: vehicles.length, data: vehicles });
+    res.status(200).json({ 
+      success: true, 
+      count: vehicles.length, 
+      totalCount,
+      totalPages: Math.ceil(totalCount / parseInt(limit)),
+      currentPage: parseInt(page),
+      data: vehicles 
+    });
   } catch (error) {
     console.log("getVehicles error:", error);
     res.status(500).json({ success: false, message: "Server error" });

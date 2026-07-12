@@ -13,7 +13,10 @@ import fuelLogRoutes from "./routes/fuelLog.routes.js";
 import expenseRoutes from "./routes/expense.routes.js";
 const app = express()
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5174', // Adjust this if your frontend runs on a different port
+  credentials: true
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
