@@ -25,4 +25,4 @@ const maintenanceLogSchema = new mongoose.Schema({
   },
 }, { timestamps: { createdAt: true, updatedAt: false } });
 
-export const MaintenanceLog= mongoose.model('MaintenanceLog', maintenanceLogSchema);
+export const MaintenanceLog = mongoose.model('MaintenanceLog', maintenanceLogSchema);
