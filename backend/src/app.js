@@ -2,6 +2,7 @@ import express from 'express'
 import authRoutes from './routes/authRoutes.js'
 import cookieParser from 'cookie-parser'
 import vehicleRoutes from './routes/vehicle.routes.js';
+import maintenceRoutes from './routes/maintenanceRoutes.js'
 import driverRoutes from './routes/driver.js';
 import dashboardRoutes from './routes/dashboard.js';
 import reportRoutes from './routes/reports.js';
