@@ -13,10 +13,16 @@ export default function VehicleRegistry() {
   const [totalPages, setTotalPages] = useState(1);
   const [totalVehicles, setTotalVehicles] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilter, setTypeFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5000/api/vehicles?page=${page}&limit=5&search=${encodeURIComponent(searchQuery)}`, { withCredentials: true })
+    let url = `http://localhost:5000/api/vehicles?page=${page}&limit=5&search=${encodeURIComponent(searchQuery)}`;
+    if (typeFilter) url += `&type=${encodeURIComponent(typeFilter)}`;
+    if (statusFilter) url += `&status=${encodeURIComponent(statusFilter)}`;
+
+    axios.get(url, { withCredentials: true })
       .then((response) => {
         if (response.data.success) {
           setVehicles(response.data.data);
@@ -49,21 +55,31 @@ export default function VehicleRegistry() {
             <div className="bg-bg-surface p-4 rounded-xl border border-border-subtle mb-6 flex flex-col lg:flex-row gap-4 items-center justify-between">
               <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
                 <div className="relative min-w-[160px]">
-                  <select className="w-full appearance-none bg-surface-container-low border border-border-subtle rounded-lg pl-4 pr-10 py-2 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer">
+                  <select 
+                    value={typeFilter}
+                    onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
+                    className="w-full appearance-none bg-surface-container-low border border-border-subtle rounded-lg pl-4 pr-10 py-2 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer"
+                  >
                     <option value="">Type: All</option>
-                    <option value="van">Van</option>
-                    <option value="truck">Truck</option>
-                    <option value="mini">Mini</option>
+                    <option value="Truck">Truck</option>
+                    <option value="Van">Van</option>
+                    <option value="Mini Truck">Mini Truck</option>
+                    <option value="Pickup">Pickup</option>
+                    <option value="Trailer">Trailer</option>
                   </select>
                   <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none">expand_more</span>
                 </div>
                 <div className="relative min-w-[160px]">
-                  <select className="w-full appearance-none bg-surface-container-low border border-border-subtle rounded-lg pl-4 pr-10 py-2 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer">
+                  <select 
+                    value={statusFilter}
+                    onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
+                    className="w-full appearance-none bg-surface-container-low border border-border-subtle rounded-lg pl-4 pr-10 py-2 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer"
+                  >
                     <option value="">Status: All</option>
-                    <option value="available">Available</option>
-                    <option value="on-trip">On Trip</option>
-                    <option value="in-shop">In Shop</option>
-                    <option value="retired">Retired</option>
+                    <option value="Available">Available</option>
+                    <option value="OnTrip">On Trip</option>
+                    <option value="InShop">In Shop</option>
+                    <option value="Retired">Retired</option>
                   </select>
                   <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none">expand_more</span>
                 </div>

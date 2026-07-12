@@ -5,7 +5,6 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -119,34 +118,20 @@ export default function LoginPage() {
               <label className="block font-label-caps text-text-secondary mb-2">PASSWORD</label>
               <div className="relative">
                 <input 
-                  type={showPassword ? 'text' : 'password'} // Changed to toggle
+                  type={showPassword ? "text" : "password"} 
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full bg-bg-surface border border-border-subtle rounded py-3 pl-4 pr-12 font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-text-secondary/50"
                   placeholder="••••••••"
                 />
-                <button 
-                  type="button" 
-                  onClick={() => setShowPassword(!showPassword)} // Added toggle function
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-on-surface transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[20px]">
-                    {showPassword ? 'visibility' : 'visibility_off'}
-                  </span>
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-on-surface transition-colors cursor-pointer">
+                  <span className="material-symbols-outlined text-[20px]">{showPassword ? 'visibility' : 'visibility_off'}</span>
                 </button>
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-1">
-              <label className="flex items-center gap-3 cursor-pointer group">
-                <div className="w-[18px] h-[18px] rounded-[4px] bg-primary flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[14px] text-on-primary font-bold" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
-                </div>
-                <span className="text-text-secondary font-body-md group-hover:text-on-surface transition-colors">Remember me</span>
-              </label>
-              <a href="#" className="text-primary font-body-md hover:underline">Forgot password?</a>
-            </div>
+
 
             <button 
               type="submit" 

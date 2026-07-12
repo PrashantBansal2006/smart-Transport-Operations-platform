@@ -136,7 +136,7 @@ export default function RegisterPage() {
               <label className="block font-label-caps text-text-secondary mb-2">PASSWORD</label>
               <div className="relative">
                 <input 
-                  type={showPassword ? 'text' : 'password'} 
+                  type={showPassword ? "text" : "password"} 
                   required
                   minLength="6"
                   value={password}
@@ -144,14 +144,8 @@ export default function RegisterPage() {
                   className="w-full bg-bg-surface border border-border-subtle rounded py-3 pl-4 pr-12 font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder:text-text-secondary/50"
                   placeholder="••••••••"
                 />
-                <button 
-                  type="button" 
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-on-surface transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[20px]">
-                    {showPassword ? 'visibility' : 'visibility_off'}
-                  </span>
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary hover:text-on-surface transition-colors cursor-pointer">
+                  <span className="material-symbols-outlined text-[20px]">{showPassword ? 'visibility' : 'visibility_off'}</span>
                 </button>
               </div>
             </div>

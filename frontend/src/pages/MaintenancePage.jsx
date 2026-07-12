@@ -159,7 +159,7 @@ export default function MaintenancePage() {
 
   // Format currency
   const formatCost = (cost) => {
-    if (cost === undefined || cost === null) return '--';
+    if (cost === undefined || cost === null) return '-';
     return `₹${Number(cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   };
 
