@@ -20,6 +20,11 @@ const driverSchema = new mongoose.Schema(
       default: 100,
     },
 
+    tripsCompleted: {
+      type: Number,
+      default: 0,
+    },
+
     status: {
       type: String,
       enum: ["Available", "OnTrip", "OffDuty", "Suspended"],

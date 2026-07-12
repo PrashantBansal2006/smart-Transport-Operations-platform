@@ -129,12 +129,12 @@ export default function SettingsPage() {
                   {/* Fleet Manager */}
                   <tr className="border-b border-border-subtle hover:bg-surface-container-highest transition-colors group">
                     <td className="py-3 px-4 font-medium text-on-surface border-r border-border-subtle/50">Fleet Manager</td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                   </tr>
                   
                   {/* Dispatcher */}
@@ -143,34 +143,34 @@ export default function SettingsPage() {
                       Dispatcher
                       <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
                     </td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                   </tr>
                   
                   {/* Safety Officer */}
                   <tr className="border-b border-border-subtle hover:bg-surface-container-highest transition-colors group">
                     <td className="py-3 px-4 font-medium text-on-surface border-r border-border-subtle/50">Safety Officer</td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                   </tr>
                   
                   {/* Financial Analyst */}
                   <tr className="hover:bg-surface-container-highest transition-colors group">
                     <td className="py-3 px-4 font-medium text-on-surface border-r border-border-subtle/50">Financial Analyst</td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                     <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
-                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-status-success text-lg">check_circle</span></td>
+                    <td className="py-3 px-2 text-center"><span className="material-symbols-outlined text-text-secondary/30 text-lg">remove</span></td>
                   </tr>
                 </tbody>
               </table>
