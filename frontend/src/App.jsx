@@ -9,6 +9,8 @@ import RegisterPage from './pages/RegisterPage';
 import VehicleRegistry from './pages/VehicleRegistry';
 import './index.css';
 
+import AnalyticsPage from './pages/AnalyticsPage';
+
 function App() {
   return (
     <BrowserRouter>
@@ -22,11 +24,9 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/drivers" replace />} />
             <Route path="drivers" element={<DriversPage />} />
-<<<<<<< HEAD
             <Route path="maintenance" element={<MaintenancePage />} />
-=======
             <Route path="fleet" element={<VehicleRegistry />} />
->>>>>>> f2395907721980fbbf272ce0ae60d7e4b6d637dd
+            <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="*" element={<div className="text-on-surface">Page not found</div>} />
           </Route>
