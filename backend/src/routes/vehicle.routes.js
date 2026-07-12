@@ -1,5 +1,5 @@
 import express from "express";
-import protectRoute from "../middleware/middleare.js";
+import { authMiddleware } from "../middleware/middleware.js";
 import {
   getVehicles,
   getAvailableVehicles,
@@ -10,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.get("/available",  protectRoute, getAvailableVehicles); // GET  /api/vehicles/available
-router.get("/",           protectRoute, getVehicles);          // GET  /api/vehicles
-router.post("/",          protectRoute, createVehicle);        // POST /api/vehicles
-router.put("/:id",        protectRoute, updateVehicle);        // PUT  /api/vehicles/:id
-router.delete("/:id",     protectRoute, deleteVehicle);        // DELETE /api/vehicles/:id
+router.get("/available",  authMiddleware, getAvailableVehicles); // GET  /api/vehicles/available
+router.get("/",           authMiddleware, getVehicles);          // GET  /api/vehicles
+router.post("/",         authMiddleware, createVehicle);        // POST /api/vehicles
+router.put("/:id",        authMiddleware, updateVehicle);        // PUT  /api/vehicles/:id
+router.delete("/:id",     authMiddleware, deleteVehicle);        // DELETE /api/vehicles/:id
 
 export default router;
