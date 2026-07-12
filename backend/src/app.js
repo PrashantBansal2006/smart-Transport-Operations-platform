@@ -5,6 +5,7 @@ import vehicleRoutes from './routes/vehicle.routes.js';
 import driverRoutes from './routes/driver.js';
 import dashboardRoutes from './routes/dashboard.js';
 import reportRoutes from './routes/reports.js';
+import tripRoutes from './routes/trip.route.js'
 
 import cors from 'cors'
 import fuelLogRoutes from "./routes/fuelLog.routes.js";
@@ -23,5 +24,6 @@ app.use("/api/expenses", expenseRoutes);
 app.use("/api/drivers", driverRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/reports", reportRoutes);
+app.use("/api/trips",tripRoutes)
 
 export default app
