@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 export default function TopNavbar({ globalSearch, setGlobalSearch }) {
   const location = useLocation();
-  
+
   // Per architecture shortcut: read user directly from localStorage
   // (set there by the login API).
   const storedUser = localStorage.getItem('user');
@@ -26,46 +26,26 @@ export default function TopNavbar({ globalSearch, setGlobalSearch }) {
   else if (location.pathname.includes('fleet')) searchPlaceholder = "Search vehicles...";
   else if (location.pathname.includes('trips')) searchPlaceholder = "Search trips...";
 
-  // Only show search bar on pages with lists/tables
-  const showSearch = location.pathname.includes('drivers') || 
-                     location.pathname.includes('fleet') || 
-                     location.pathname.includes('trips');
-
   return (
     <header className="bg-surface-container w-full h-16 border-b border-border-subtle flex-shrink-0 flex justify-between items-center px-6 max-w-container-max mx-auto">
       <div className="flex items-center gap-4 w-1/3">
-        {/* Search conditionally rendered */}
-        {showSearch && (
-          <div className="relative w-full max-w-md">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">
-              search
-            </span>
-            <input 
-              type="text"
-              value={globalSearch}
-              onChange={(e) => setGlobalSearch(e.target.value)}
-              className="w-full bg-surface-bright border border-border-subtle rounded-lg py-2 pl-10 pr-4 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors placeholder:text-text-secondary" 
-              placeholder={searchPlaceholder} 
-            />
-          </div>
-        )}
-      </div>
-      
-      <div className="flex items-center gap-6 justify-end w-1/3">
-        <div className="flex items-center gap-2">
-
-          
-          <button className="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-secondary-container/20 hover:text-on-surface transition-all active:scale-95 relative">
-            <span className="material-symbols-outlined">notifications</span>
-            <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
-          </button>
-          <button className="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-secondary-container/20 hover:text-on-surface transition-all active:scale-95">
-            <span className="material-symbols-outlined">help</span>
-          </button>
+        {/* Search on left per JSON */}
+        <div className="relative w-full max-w-md">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-[20px]">
+            search
+          </span>
+          <input
+            type="text"
+            value={globalSearch}
+            onChange={(e) => setGlobalSearch(e.target.value)}
+            className="w-full bg-surface-bright border border-border-subtle rounded-lg py-2 pl-10 pr-4 text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors placeholder:text-text-secondary"
+            placeholder={searchPlaceholder}
+          />
         </div>
-        
-        <div className="h-8 w-px bg-border-subtle"></div>
-        
+      </div>
+
+      <div className="flex items-center gap-6 justify-end w-1/3">
+
         {user ? (
           <div className="flex items-center gap-3">
             <div className="flex flex-col items-end">

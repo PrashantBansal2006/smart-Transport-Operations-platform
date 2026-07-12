@@ -149,7 +149,6 @@ export default function DriversPage() {
               <th className="py-3 px-4 text-label-caps font-label-caps text-text-secondary uppercase tracking-wider text-right">Trip Compl.</th>
               <th className="py-3 px-4 text-label-caps font-label-caps text-text-secondary uppercase tracking-wider text-right">Safety Score</th>
               <th className="py-3 px-4 text-label-caps font-label-caps text-text-secondary uppercase tracking-wider pl-8">Status</th>
-              <th className="py-3 px-4 w-12"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border-subtle text-body-md font-body-md">
@@ -167,7 +166,7 @@ export default function DriversPage() {
               </tr>
             ) : (
               drivers.map((driver) => {
-                const expired = isExpired(driver.licenseExpiry);
+                const expired = isExpired(driver.licenseExpiryDate);
                 const isSuspended = driver.status === 'Suspended';
                 
                 return (
@@ -190,7 +189,7 @@ export default function DriversPage() {
                     <td className="py-3 px-4 text-text-secondary font-data-mono">{driver.licenseNumber}</td>
                     <td className="py-3 px-4 text-on-surface">{driver.licenseCategory}</td>
                     <td className={`py-3 px-4 ${expired ? 'text-status-danger font-medium' : 'text-on-surface'}`}>
-                      {formatExpiry(driver.licenseExpiry)} {expired && 'EXPIRED'}
+                      {formatExpiry(driver.licenseExpiryDate)} {expired && 'EXPIRED'}
                     </td>
                     <td className="py-3 px-4 text-text-secondary font-data-mono">{driver.contactNumber}</td>
                     <td className="py-3 px-4 text-right font-data-mono text-on-surface">--</td>
@@ -199,11 +198,6 @@ export default function DriversPage() {
                     </td>
                     <td className="py-3 px-4 pl-8">
                       <StatusBadge status={driver.status} />
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <button className="text-text-secondary hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span className="material-symbols-outlined">more_vert</span>
-                      </button>
                     </td>
                   </tr>
                 );

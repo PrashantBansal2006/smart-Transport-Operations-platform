@@ -79,7 +79,7 @@ export default function Sidebar() {
           )}
         </NavLink>
         
-        <div className="mt-auto pt-4 border-t border-border-subtle mx-4">
+        <div className="mt-2 pt-4 border-t border-border-subtle mx-4 mb-2">
           <button 
             onClick={() => {
               localStorage.removeItem('token');
