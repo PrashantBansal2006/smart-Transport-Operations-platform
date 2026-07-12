@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import { useToast } from '../components/ToastContext';
 
 // 1. Credentials/Auth Service (Simulation for logic integration)
 const authService = {
@@ -12,6 +13,7 @@ const authService = {
 
 export default function TripsDispatcher() {
   const { globalSearch } = useOutletContext() || {};
+  const { showToast } = useToast();
   const [trips, setTrips] = useState([]);
   const [statusFilter, setStatusFilter] = useState('All');
   const [loading, setLoading] = useState(true);
@@ -160,8 +162,8 @@ export default function TripsDispatcher() {
         fetchTrips();
         fetchDropdownData();
       }
-      else alert(data.error || data.message || 'Dispatch failed');
-    } catch (err) { alert('Network error during dispatch'); }
+      else showToast(data.error || data.message || 'Dispatch failed', 'error');
+    } catch (err) { showToast('Network error during dispatch', 'error'); }
     finally { setProcessingTripId(null); }
   };
 
@@ -178,8 +180,8 @@ export default function TripsDispatcher() {
         fetchTrips();
         fetchDropdownData();
       }
-      else alert(data.error || data.message || 'Cancellation failed');
-    } catch (err) { alert('Network error during cancellation'); }
+      else showToast(data.error || data.message || 'Cancellation failed', 'error');
+    } catch (err) { showToast('Network error during cancellation', 'error'); }
     finally { setProcessingTripId(null); }
   };
 

@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useOutletContext } from 'react-router-dom';
+import { useToast } from '../components/ToastContext';
+
+const API_BASE = 'http://localhost:5000/api';
 
 export default function AnalyticsPage() {
+  const { globalSearch } = useOutletContext();
+  const { showToast } = useToast();
+
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +17,7 @@ export default function AnalyticsPage() {
     const fetchAnalytics = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:5000/api/reports/analytics', {
+        const res = await fetch(`${API_BASE}/reports/analytics`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -78,7 +85,7 @@ export default function AnalyticsPage() {
   const handleExport = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/reports/export.csv', {
+      const res = await fetch(`${API_BASE}/reports/export.csv`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -97,7 +104,7 @@ export default function AnalyticsPage() {
       document.body.removeChild(a);
     } catch (err) {
       console.error('Error downloading CSV:', err);
-      alert('Failed to download CSV report.');
+      showToast('Failed to download CSV report.', 'error');
     }
   };
 

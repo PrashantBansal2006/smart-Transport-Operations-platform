@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useToast } from '../components/ToastContext';
 
 export default function SettingsPage() {
+  const { showToast } = useToast();
   const storedUser = localStorage.getItem('user');
   let user = null;
   if (storedUser) {
@@ -37,11 +39,11 @@ export default function SettingsPage() {
         setTimeout(() => setSaveStatus('idle'), 2000);
       } else {
         setSaveStatus('idle');
-        alert(data.message || 'Failed to update depot name');
+        showToast(data.message || 'Failed to update depot name', 'error');
       }
     } catch (err) {
       setSaveStatus('idle');
-      alert('Network error or not authenticated.');
+      showToast('Network error or not authenticated.', 'error');
     }
   };
 
