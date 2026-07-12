@@ -3,10 +3,10 @@ import { useOutletContext } from 'react-router-dom';
 
 // 1. Credentials/Auth Service (Simulation for logic integration)
 const authService = {
-  getToken: () => localStorage.getItem('authToken'),
+  getToken: () => localStorage.getItem('token'),
   getHeaders: () => ({
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
   })
 };
 
@@ -39,6 +39,7 @@ export default function TripsDispatcher() {
   
   const [actionError, setActionError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [processingTripId, setProcessingTripId] = useState(null);
 
   // --- APPLICATION LOGIC: FETCH TRIPS ---
   const fetchTrips = useCallback(async () => {
@@ -50,7 +51,10 @@ export default function TripsDispatcher() {
         url += `?status=${statusFilter}`;
       }
       
-      const res = await fetch(url, { headers: authService.getHeaders() });
+      const res = await fetch(url, { 
+        headers: authService.getHeaders(),
+        cache: 'no-store'
+      });
       const data = await res.json();
       
       if (data.success) {
@@ -77,17 +81,29 @@ export default function TripsDispatcher() {
   const fetchDropdownData = async () => {
     try {
       const [vehicleRes, driverRes] = await Promise.all([
-        fetch('http://localhost:5000/api/vehicles', { headers: authService.getHeaders() }),
-        fetch('http://localhost:5000/api/drivers', { headers: authService.getHeaders() })
+        fetch('http://localhost:5000/api/vehicles/available', { headers: authService.getHeaders(), cache: 'no-store' }),
+        fetch('http://localhost:5000/api/drivers/available', { headers: authService.getHeaders(), cache: 'no-store' })
       ]);
       
       const vehicleData = await vehicleRes.json();
       const driverData = await driverRes.json();
       
-      if (vehicleData?.success) setVehicles(vehicleData.data || []);
-      if (Array.isArray(driverData)) setDrivers(driverData);
+      if (!vehicleData?.success) {
+        console.error("Vehicle fetch failed:", vehicleData);
+        setActionError("Failed to fetch vehicles: " + (vehicleData?.message || vehicleData?.error || "Unknown"));
+      } else {
+        setVehicles(vehicleData.data || []);
+      }
+      
+      if (!driverData?.success) {
+        console.error("Driver fetch failed:", driverData);
+        setActionError("Failed to fetch drivers: " + (driverData?.message || driverData?.error || "Unknown"));
+      } else {
+        setDrivers(driverData.data || []);
+      }
     } catch (err) {
       console.error("Error loading dropdown lists", err);
+      setActionError("Network error loading dropdowns.");
     }
   };
 
@@ -99,20 +115,17 @@ export default function TripsDispatcher() {
   // --- APPLICATION LOGIC: ACTIONS ---
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
-    if (!createData.vehicleId || !createData.driverId) {
-      setActionError("Please select both a valid Vehicle and Driver from the list.");
-      return;
-    }
-
     setIsSubmitting(true);
     setActionError(null);
-
     try {
       const res = await fetch('http://localhost:5000/api/trips', {
         method: 'POST',
         headers: authService.getHeaders(),
         body: JSON.stringify({
-          ...createData,
+          source: createData.source,
+          destination: createData.destination,
+          vehicleId: createData.vehicleId,
+          driverId: createData.driverId,
           cargoWeightKg: Number(createData.cargoWeightKg),
           plannedDistanceKm: Number(createData.plannedDistanceKm)
         })
@@ -123,8 +136,9 @@ export default function TripsDispatcher() {
         setIsCreateModalOpen(false);
         setCreateData({ source: '', destination: '', vehicleId: '', driverId: '', cargoWeightKg: '', plannedDistanceKm: '' });
         fetchTrips();
+        fetchDropdownData(); // Refresh available dropdowns
       } else {
-        setActionError(data.error || 'Failed to create trip');
+        setActionError(data.error || data.message || 'Failed to create trip');
       }
     } catch (err) {
       setActionError('Network error while scheduling trip');
@@ -135,28 +149,38 @@ export default function TripsDispatcher() {
 
   const handleDispatch = async (id) => {
     if (!window.confirm('Are you sure you want to dispatch this trip?')) return;
+    setProcessingTripId(id);
     try {
       const res = await fetch(`http://localhost:5000/api/trips/${id}/dispatch`, {
         method: 'POST',
         headers: authService.getHeaders()
       });
       const data = await res.json();
-      if (data.success) fetchTrips();
-      else alert(data.error || 'Dispatch failed');
+      if (data.success) {
+        fetchTrips();
+        fetchDropdownData();
+      }
+      else alert(data.error || data.message || 'Dispatch failed');
     } catch (err) { alert('Network error during dispatch'); }
+    finally { setProcessingTripId(null); }
   };
 
   const handleCancel = async (id) => {
     if (!window.confirm('Are you sure you want to cancel this trip?')) return;
+    setProcessingTripId(id);
     try {
       const res = await fetch(`http://localhost:5000/api/trips/${id}/cancel`, {
         method: 'POST',
         headers: authService.getHeaders()
       });
       const data = await res.json();
-      if (data.success) fetchTrips();
-      else alert(data.error || 'Cancellation failed');
+      if (data.success) {
+        fetchTrips();
+        fetchDropdownData();
+      }
+      else alert(data.error || data.message || 'Cancellation failed');
     } catch (err) { alert('Network error during cancellation'); }
+    finally { setProcessingTripId(null); }
   };
 
   const handleCompleteSubmit = async (e) => {
@@ -175,11 +199,22 @@ export default function TripsDispatcher() {
       if (data.success) {
         setIsCompleteModalOpen(false);
         fetchTrips();
+        fetchDropdownData();
       } else {
-        setActionError(data.error || 'Failed to complete trip');
+        setActionError(data.error || data.message || 'Failed to complete trip');
       }
-    } catch (err) { setActionError('Network error'); }
-    finally { setIsSubmitting(false); }
+    } catch (err) {
+      setActionError('Network error during completion');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const openCompleteModal = (tripId) => {
+    setSelectedTripId(tripId);
+    setCompletionData({ finalOdometer: '', fuelConsumedLiters: '' });
+    setActionError(null);
+    setIsCompleteModalOpen(true);
   };
 
   // ... [Return JSX same as before] ...
@@ -329,15 +364,28 @@ export default function TripsDispatcher() {
                   </td>
 
                   <td className="py-3 px-4 text-text-secondary font-mono">
-
-                    {trip.vehicleId?.registrationNumber || '--'}
-
+                    <div className="flex items-center gap-2">
+                      <span>{trip.vehicleId?.registrationNumber || '--'}</span>
+                      {trip.vehicleId?.status && (
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+                          trip.vehicleId.status === 'OnTrip' ? 'bg-blue-100 text-blue-700' : 'bg-surface-container-high text-text-secondary'
+                        }`}>
+                          {trip.vehicleId.status}
+                        </span>
+                      )}
+                    </div>
                   </td>
-
                   <td className="py-3 px-4 text-on-surface">
-
-                    {trip.driverId?.name || '--'}
-
+                    <div className="flex items-center gap-2">
+                      <span>{trip.driverId?.name || '--'}</span>
+                      {trip.driverId?.status && (
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+                          trip.driverId.status === 'OnTrip' ? 'bg-blue-100 text-blue-700' : 'bg-surface-container-high text-text-secondary'
+                        }`}>
+                          {trip.driverId.status}
+                        </span>
+                      )}
+                    </div>
                   </td>
 
                   <td className="py-3 px-4 text-right font-mono text-on-surface">
@@ -381,27 +429,34 @@ export default function TripsDispatcher() {
                         <>
 
                           <button
-
                             onClick={() => handleDispatch(trip._id)}
-
-                            className="bg-green-100 hover:bg-green-600 text-green-700 hover:text-white text-xs font-semibold px-2.5 py-1 rounded transition-colors"
-
+                            disabled={processingTripId === trip._id}
+                            className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded transition-colors ${
+                              processingTripId === trip._id ? 'bg-green-300 text-white cursor-wait' : 'bg-green-100 hover:bg-green-600 text-green-700 hover:text-white'
+                            }`}
                           >
-
-                            Dispatch
-
+                            {processingTripId === trip._id && (
+                              <svg className="animate-spin h-3 w-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                            )}
+                            {processingTripId === trip._id ? 'Dispatching...' : 'Dispatch'}
                           </button>
-
                           <button
-
                             onClick={() => handleCancel(trip._id)}
-
-                            className="bg-red-100 hover:bg-red-600 text-red-700 hover:text-white text-xs font-semibold px-2.5 py-1 rounded transition-colors"
-
+                            disabled={processingTripId === trip._id}
+                            className={`flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded transition-colors ${
+                              processingTripId === trip._id ? 'bg-red-300 text-white cursor-wait' : 'bg-red-100 hover:bg-red-600 text-red-700 hover:text-white'
+                            }`}
                           >
-
+                            {processingTripId === trip._id && (
+                              <svg className="animate-spin h-3 w-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                            )}
                             Cancel
-
                           </button>
 
                         </>
@@ -819,17 +874,17 @@ export default function TripsDispatcher() {
                 </button>
 
                 <button
-
                   type="submit"
-
                   disabled={isSubmitting}
-
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors disabled:opacity-50"
-
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-
+                  {isSubmitting && (
+                    <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  )}
                   {isSubmitting ? 'Processing...' : 'Submit Realized Logs'}
-
                 </button>
 
               </div>
