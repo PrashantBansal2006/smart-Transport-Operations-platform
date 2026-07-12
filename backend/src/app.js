@@ -14,7 +14,7 @@ import expenseRoutes from "./routes/expense.routes.js";
 const app = express()
 
 app.use(cors({
-  origin: 'http://localhost:5174', // Adjust this if your frontend runs on a different port
+  origin: ['http://localhost:5173', 'http://localhost:5174'], 
   credentials: true
 }))
 app.use(express.json())
